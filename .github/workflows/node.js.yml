@@ -1,0 +1,32 @@
+name: Run Jest Tests
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16'  # Specify the Node.js version you want to use
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Run Jest Tests
+      run: npm run test -- --ci --reporters=default --reporters=jest-junit  # Run Jest tests in CI mode
+      continue-on-error: false  # Ensure the workflow fails if Jest tests fail
+
+    - name: Log success message
+      run: echo "All tests passed!"  # This step will only run if tests pass
