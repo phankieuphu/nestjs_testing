@@ -25,7 +25,7 @@ jobs:
       run: npm install
 
     - name: Run Jest Tests
-      run: npm run test -- --ci --reporters=default --reporters=jest-junit  # Run Jest tests in CI mode
+      run: npm run test:cov # Run Jest tests in CI mode
       continue-on-error: false  # Ensure the workflow fails if Jest tests fail
 
     - name: Log success message
